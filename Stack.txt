@@ -1,0 +1,101 @@
+#include<string.h>
+#include<stdlib.h>
+struct Stack {
+	char*name;
+	int type;
+	struct  {
+		int integer;
+		float floater;
+		bool boolean;
+	}value;
+
+	Stack* next;
+};
+
+Stack* head = NULL;
+Stack* tail = NULL;
+
+void AddInteger(char* nume, int valoare=0)
+{
+	Stack* p = new Stack();
+	printf("    (%s %d)", nume, valoare);
+	p->name = (char*)malloc(strlen(nume) + 1);
+	strcpy(p->name, nume);
+	p->type = 1;
+	p->value.integer = valoare;
+	if (head == NULL)
+		head = tail = p;
+	else
+	{
+		tail->next = p;
+		tail = p;
+	}
+}
+void AddFloater(char* nume, float valoare = 0)
+{
+	Stack* p = new Stack();
+	p->name = (char*)malloc(strlen(nume) + 1);
+	strcpy(p->name, nume);
+	p->type = 2;
+	p->value.floater = valoare;
+	if (head == NULL)
+		head = tail = p;
+	else
+	{
+		tail->next = p;
+		tail = p;
+	}
+}
+void AddBoolean(char* nume, bool valoare = false)
+{
+	Stack* p = new Stack();
+	p->name = (char*)malloc(strlen(nume) + 1);
+	strcpy(p->name, nume);
+	p->type = 3;
+	p->value.boolean = valoare;
+	if (head == NULL)
+		head = tail = p;
+	else
+	{
+		tail->next = p;
+		tail = p;
+	}
+}
+void AddIntVal(Stack *Point, int val)
+{
+	Point->value.integer = val;
+	printf("%d", Point->value.integer);
+}
+
+void AddFloatVal(Stack *Point, float val)
+{
+	Point->value.floater = val;
+}
+
+void AddBoolVal(Stack *Point, bool val)
+{
+	Point->value.boolean = val;
+}
+Stack* checkExists(char* nume)
+{
+	Stack *p = head;
+	while (p != NULL)
+	{
+		if (strcmp(p->name, nume) == 0)
+		{
+			return p;
+		}
+		p = p->next;
+
+	}
+	return NULL;
+}
+void print()
+{
+	Stack* p = head;
+	while(p!=NULL)
+	{
+		printf("%s %d\n", p->name, p->type);
+		p = p->next;
+	}
+}
